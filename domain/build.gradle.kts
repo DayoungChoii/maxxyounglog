@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
@@ -16,10 +15,6 @@ tasks.getByName<BootJar>("bootJar") {
 tasks.getByName<Jar>("jar") {
 	enabled = true
 	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}
-
-java {
-	sourceCompatibility = JavaVersion.VERSION_17
 }
 
 dependencies {
