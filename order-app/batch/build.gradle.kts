@@ -18,7 +18,7 @@ tasks.getByName<Jar>("jar") {
 }
 
 dependencies {
-	implementation(project(":domain:rds"))
+	implementation(project(":order-domain:rds"))
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

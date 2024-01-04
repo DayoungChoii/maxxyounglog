@@ -1,8 +1,8 @@
 rootProject.name = "ordertoy"
 
-include("domain:rds")
-include("domain:redis")
-include("app:api")
-include("app:batch")
-include("internal:async")
+include("order-domain:rds")
+include("order-domain:redis")
+include("order-app:api")
+include("order-app:batch")
+include("order-internal:async")
 
