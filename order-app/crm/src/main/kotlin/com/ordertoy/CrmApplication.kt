@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class OrdertoyApplication
+class CrmApplication
 
 fun main(args: Array<String>) {
-	runApplication<OrdertoyApplication>(*args)
+	runApplication<CrmApplication>(*args)
 }
