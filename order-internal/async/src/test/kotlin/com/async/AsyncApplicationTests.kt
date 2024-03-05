@@ -1,10 +1,10 @@
-package com.ordertoy
+package com.async
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class OrdertoyApplicationTests {
+class AsyncApplicationTests {
 
 	@Test
 	fun contextLoads() {

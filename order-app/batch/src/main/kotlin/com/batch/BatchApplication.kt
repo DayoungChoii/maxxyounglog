@@ -1,11 +1,11 @@
-package com.ordertoy
+package com.batch
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class AsyncApplication
+class BatchApplication
 
 fun main(args: Array<String>) {
-	runApplication<AsyncApplication>(*args)
+	runApplication<BatchApplication>(*args)
 }

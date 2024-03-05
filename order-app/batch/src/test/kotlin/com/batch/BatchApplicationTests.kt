@@ -1,10 +1,10 @@
-package com.ordertoy
+package com.batch
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class OrdertoyApplicationTests {
+class BatchApplicationTests {
 
 	@Test
 	fun contextLoads() {

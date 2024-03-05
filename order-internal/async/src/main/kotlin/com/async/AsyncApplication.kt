@@ -1,11 +1,11 @@
-package com.ordertoy
+package com.async
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class OrdertoyApplication
+class AsyncApplication
 
 fun main(args: Array<String>) {
-	runApplication<OrdertoyApplication>(*args)
+	runApplication<AsyncApplication>(*args)
 }

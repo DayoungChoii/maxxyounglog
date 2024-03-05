@@ -1,11 +1,11 @@
-package com.ordertoy
+package com.redis
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class AsyncApplication
+class RedisApplication
 
 fun main(args: Array<String>) {
-	runApplication<AsyncApplication>(*args)
+	runApplication<RedisApplication>(*args)
 }

@@ -1,4 +1,4 @@
-package com.ordertoy
+package com.crm
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

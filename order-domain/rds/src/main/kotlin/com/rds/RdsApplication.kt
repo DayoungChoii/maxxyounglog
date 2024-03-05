@@ -1,11 +1,13 @@
-package com.ordertoy
+package com.rds
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 
 @SpringBootApplication
-class AsyncApplication
+@EnableJpaAuditing
+class RdsApplication
 
 fun main(args: Array<String>) {
-	runApplication<AsyncApplication>(*args)
+	runApplication<RdsApplication>(*args)
 }
