@@ -1,10 +1,7 @@
 package com.rds.user.domain
 
 import com.rds.BaseTimeEntity
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
 
 @Entity
 class User(
@@ -14,6 +11,7 @@ class User(
 ) : BaseTimeEntity(){
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L
+    @Enumerated(EnumType.STRING)
     var state: UserState = UserState.ACTIVATED;
 
     fun updatePassword(password: String) {

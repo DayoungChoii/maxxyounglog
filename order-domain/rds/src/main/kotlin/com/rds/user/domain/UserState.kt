@@ -1,4 +1,4 @@
-package com.rds.user
+package com.rds.user.domain
 
 enum class UserState {
     ACTIVATED,
