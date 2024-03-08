@@ -23,6 +23,7 @@ object Versions {
 
 dependencies {
 	implementation(project(":order-domain:rds"))
+	implementation(project(":order-domain:redis"))
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -31,6 +32,7 @@ dependencies {
 	implementation("jakarta.validation:jakarta.validation-api:3.0.2")
 	implementation("org.springframework.security:spring-security-core:5.5.0")
 	implementation("com.google.code.gson:gson:2.8.8")
+	implementation("org.springframework.boot:spring-boot-starter-data-redis")
 	testImplementation("io.kotest:kotest-runner-junit5-jvm:4.6.0")
 	runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
