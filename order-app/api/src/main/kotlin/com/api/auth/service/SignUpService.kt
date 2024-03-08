@@ -2,7 +2,7 @@ package com.api.auth.service
 
 import com.api.auth.dto.SignUpRequest
 import com.api.auth.exception.AuthException
-import com.api.auth.status.AuthExceptionMessage
+import com.api.auth.exception.AuthExceptionType
 import com.api.auth.status.SignUpStatus
 import com.rds.user.repository.UserRepository
 import org.springframework.stereotype.Service
@@ -24,7 +24,7 @@ class SignUpService (
             signUpRequest.encryptPassword(encryptedPassword)
             userRepository.save(signUpRequest.toUser());
         } catch (e: RuntimeException) {
-            throw AuthException(AuthExceptionMessage.SIGN_UP_FAIL, e)
+            throw AuthException(AuthExceptionType.SIGN_UP_FAIL, e)
         }
 
         return SignUpStatus.SUCCESS;

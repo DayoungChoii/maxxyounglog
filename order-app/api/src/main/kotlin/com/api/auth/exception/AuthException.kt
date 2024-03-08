@@ -1,8 +1,8 @@
 package com.api.auth.exception
 
-import com.api.auth.status.AuthExceptionMessage
+import com.api.common.exception.CustomException
 
 class AuthException (
-    message: AuthExceptionMessage,
+    type: AuthExceptionType,
     e: Throwable?
-): RuntimeException(message.name, e)
+): CustomException(type, e)
