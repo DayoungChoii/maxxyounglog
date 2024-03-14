@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
-import org.springframework.web.client.HttpClientErrorException.Unauthorized
+
 
 const val UNAUTHORIZED_MESSAGE: String = "invalid authorization"
 const val PARAMETER_MESSAGE: String = "invalid parameter"

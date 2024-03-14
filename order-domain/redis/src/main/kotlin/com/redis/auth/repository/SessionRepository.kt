@@ -5,4 +5,6 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface SessionRepository: CrudRepository<Session, Long>
+interface SessionRepository: CrudRepository<Session, Long> {
+    fun findByToken(token: String): Session?
+}
