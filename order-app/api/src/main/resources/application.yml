@@ -30,6 +30,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+domain: localhost
 ---
 spring:
   config:
@@ -38,6 +39,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+domain: localhost
 ---
 spring:
   config:
@@ -46,3 +48,4 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+domain: localhost

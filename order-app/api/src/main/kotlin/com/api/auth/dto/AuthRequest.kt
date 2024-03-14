@@ -27,3 +27,12 @@ data class SignUpRequest (
     }
 
 }
+
+data class LogInRequest (
+    @field:NotBlank
+    val email: String,
+    @field:NotBlank
+    val password: String
+) {
+
+}
