@@ -10,6 +10,7 @@ import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.data.redis.core.RedisTemplate
+import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.security.authentication.AuthenticationManager
@@ -56,7 +57,7 @@ class JwtAuthenticationFilter(
         createRefreshToken(userDetails.username)
         response.contentType = MediaType.APPLICATION_JSON_VALUE
         response.writer.write(Gson().toJson(LogInResponse(LogInStatus.SUCCESS, accessToken)))
-        response.setHeader("Authorization", accessToken)
+        response.setHeader(HttpHeaders.AUTHORIZATION, accessToken)
     }
 
     override fun unsuccessfulAuthentication(
@@ -101,7 +102,5 @@ class JwtAuthenticationFilter(
 
         return refreshToken
     }
-
-    
 }
 

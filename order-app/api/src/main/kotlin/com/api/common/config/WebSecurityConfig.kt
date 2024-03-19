@@ -1,6 +1,7 @@
 package com.api.common.config
 
 import com.api.auth.filter.JwtAuthenticationFilter
+import com.api.auth.filter.JwtAuthorizationFilter
 import com.api.auth.service.security.JwtTokenProvider
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.beans.factory.annotation.Value
@@ -48,10 +49,10 @@ class WebSecurityConfig (
             }
             .csrf{csrfConfig: CsrfConfigurer<HttpSecurity> -> csrfConfig.disable()}
             .addFilterBefore(JwtAuthenticationFilter(authenticationManager, redisTemplate, accessExpirationTime, refreshExpirationTime), UsernamePasswordAuthenticationFilter::class.java)
-//            .addFilterBefore(JwtAuthorizationFilter(jwtTokenProvider), OncePerRequestFilter::class.java)
+            .addFilterBefore(JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter::class.java)
             .exceptionHandling {access ->
                 access.accessDeniedHandler{ _, response, _ ->
-                response.status = HttpServletResponse.SC_FORBIDDEN
+                    response.status = HttpServletResponse.SC_FORBIDDEN
                 }
                 access.authenticationEntryPoint{_, response, _ ->
                     response.status = HttpServletResponse.SC_UNAUTHORIZED

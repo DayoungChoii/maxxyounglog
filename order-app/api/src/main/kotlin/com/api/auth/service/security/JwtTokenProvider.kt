@@ -1,9 +1,7 @@
 package com.api.auth.service.security
 
 import com.api.auth.service.Encryptor
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.PropertySource
-import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -15,11 +13,6 @@ import java.util.*
 @Component
 @PropertySource("classpath:/secure-jwt.properties")
 class JwtTokenProvider (
-    private val redisTemplate: RedisTemplate<String, String>,
-    @Value("\${spring.jwt.token.access-expiration-time}")
-    private val accessExpirationTime: Long,
-    @Value("\${spring.jwt.token.refresh-expiration-time}")
-    private val refreshExpirationTime: Long,
     private val userDetailsService: UserDetailsService,
     private val encryptor: Encryptor
 ): AuthenticationProvider {
