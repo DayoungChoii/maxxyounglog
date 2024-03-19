@@ -30,11 +30,19 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("jakarta.validation:jakarta.validation-api:3.0.2")
-	implementation("org.springframework.security:spring-security-core:5.5.0")
+	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("com.google.code.gson:gson:2.8.8")
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
-	testImplementation("io.kotest:kotest-runner-junit5-jvm:4.6.0")
+	//jwt
+	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+	implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
+	implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
+
+
 	runtimeOnly("com.h2database:h2")
+
+	testImplementation("io.kotest:kotest-runner-junit5-jvm:4.6.0")
+	testImplementation ("org.springframework.security:spring-security-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.kotest:kotest-runner-junit5:${Versions.KOTEST}")
 	testImplementation("io.kotest:kotest-assertions-core:${Versions.KOTEST}")

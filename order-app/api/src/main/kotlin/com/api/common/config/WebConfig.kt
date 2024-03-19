@@ -2,11 +2,10 @@ package com.api.common.config
 
 import com.api.common.interceptor.AuthInterceptor
 import com.redis.auth.repository.SessionRepository
-import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
-@Configuration
+//@Configuration
 class WebConfig(
     private val sessionRepository: SessionRepository
 ): WebMvcConfigurer {

@@ -8,5 +8,9 @@ enum class AuthExceptionType (
     override val httpStatusCode: HttpStatusCode,
     override val message: String
 ): CustomExceptionType {
-    SIGN_UP_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "sign up fail");
+    SIGN_UP_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "sign up fail"),
+    INVALID_EMAIL(HttpStatus.BAD_REQUEST, "invalid email"),
+    EXPIRED_TOKEN(HttpStatus.UNAUTHORIZED, "expired token"),
+    INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "invalid token"),
+    REDIS_CONNECTION_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "redis connection fail"),
 }

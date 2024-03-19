@@ -5,4 +5,6 @@ import com.api.common.exception.CustomException
 class AuthException (
     type: AuthExceptionType,
     e: Throwable?
-): CustomException(type, e)
+): CustomException(type, e) {
+    constructor(type: AuthExceptionType): this(type, null)
+}
