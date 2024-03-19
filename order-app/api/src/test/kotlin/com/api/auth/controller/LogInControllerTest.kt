@@ -3,8 +3,8 @@ package com.api.auth.controller
 import com.api.auth.dto.LogInRequest
 import com.api.auth.dto.LogInResponse
 import com.api.auth.service.LoginService
-import com.api.auth.status.LogInStatus
-import com.api.auth.status.SignUpStatus
+import com.api.auth.constant.LogInStatus
+import com.api.auth.constant.SignUpStatus
 import com.appmattus.kotlinfixture.kotlinFixture
 import com.google.gson.Gson
 import com.redis.auth.domain.Session

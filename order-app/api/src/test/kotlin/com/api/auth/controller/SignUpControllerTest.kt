@@ -2,7 +2,7 @@ package com.api.auth.controller
 
 import com.api.auth.dto.SignUpRequest
 import com.api.auth.service.SignUpService
-import com.api.auth.status.SignUpStatus
+import com.api.auth.constant.SignUpStatus
 import com.google.gson.Gson
 import io.kotest.core.spec.style.FunSpec
 import org.junit.jupiter.api.extension.ExtendWith

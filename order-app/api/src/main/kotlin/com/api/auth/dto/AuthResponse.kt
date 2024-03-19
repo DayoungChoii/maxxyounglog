@@ -1,8 +1,8 @@
 package com.api.auth.dto
 
-import com.api.auth.status.LogInStatus
+import com.api.auth.constant.LogInStatus
 
 data class LogInResponse (
     val status: LogInStatus,
-    val sessionToken: String = ""
+    val token: String = ""
 )

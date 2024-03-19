@@ -3,7 +3,7 @@ package com.api.auth.service
 import com.api.auth.dto.SignUpRequest
 import com.api.auth.exception.AuthException
 import com.api.auth.exception.AuthExceptionType
-import com.api.auth.status.SignUpStatus
+import com.api.auth.constant.SignUpStatus
 import com.rds.user.repository.UserRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

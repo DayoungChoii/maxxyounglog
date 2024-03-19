@@ -2,7 +2,8 @@ package com.api.auth.service
 
 import com.api.auth.dto.LogInRequest
 import com.api.auth.dto.LogInResponse
-import com.api.auth.status.LogInStatus.*
+import com.api.auth.service.session.SessionLoginServiceImpl
+import com.api.auth.constant.LogInStatus.*
 import com.appmattus.kotlinfixture.kotlinFixture
 import com.rds.user.domain.User
 import com.rds.user.repository.UserRepository

@@ -1,4 +1,4 @@
-package com.api.auth.status
+package com.api.auth.constant
 
 enum class SignUpStatus {
     DUPLICATED_EMAIL,

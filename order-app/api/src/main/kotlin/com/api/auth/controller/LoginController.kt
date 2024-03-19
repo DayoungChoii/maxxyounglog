@@ -1,17 +1,19 @@
 package com.api.auth.controller
 
+import com.api.auth.constant.LogInStatus
+import com.api.auth.constant.LogInStatus.*
 import com.api.auth.dto.LogInRequest
 import com.api.auth.dto.LogInResponse
 import com.api.auth.service.LoginService
-import com.api.auth.status.LogInStatus
-import com.api.auth.status.LogInStatus.*
 import com.api.common.StatusResult
+import com.api.common.const.TOKEN_NAME
 import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseCookie
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
@@ -37,7 +39,7 @@ class LoginController(
     }
 
     private fun createCookie(logInResponse: LogInResponse) =
-        ResponseCookie.from("SESSION", logInResponse.sessionToken)
+        ResponseCookie.from(TOKEN_NAME, logInResponse.token)
             .domain(domain)
             .path("/")
             .httpOnly(true)
@@ -45,4 +47,10 @@ class LoginController(
             .maxAge(Duration.ofDays(30))
             .sameSite("Strict")
             .build()
+
+
+    @GetMapping("test")
+    fun test(): String {
+        return "test";
+    }
 }

@@ -1,3 +1,3 @@
 package com.api.common.const
 
-const val SESSION_NAME = "SESSION"
+const val TOKEN_NAME = "token"

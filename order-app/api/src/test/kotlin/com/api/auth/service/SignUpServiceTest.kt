@@ -1,7 +1,7 @@
 package com.api.auth.service
 
 import com.api.auth.dto.SignUpRequest
-import com.api.auth.status.SignUpStatus
+import com.api.auth.constant.SignUpStatus
 import com.appmattus.kotlinfixture.kotlinFixture
 import com.rds.user.domain.User
 import com.rds.user.repository.UserRepository
