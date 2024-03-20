@@ -33,6 +33,11 @@ data class LogInRequest (
     val email: String,
     @field:NotBlank
     val password: String
-) {
+)
 
-}
+data class GenerateRefreshTokenRequest (
+    @field:NotBlank
+    val email: String,
+    @field:NotBlank
+    val refreshToken: String
+)

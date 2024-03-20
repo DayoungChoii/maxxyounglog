@@ -4,5 +4,6 @@ import com.api.auth.constant.LogInStatus
 
 data class LogInResponse (
     val status: LogInStatus,
-    val token: String = ""
+    val accessToken: String = "",
+    val refreshToken: String = ""
 )
