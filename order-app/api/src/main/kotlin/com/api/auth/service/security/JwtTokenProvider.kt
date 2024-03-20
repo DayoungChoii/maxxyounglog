@@ -1,7 +1,6 @@
 package com.api.auth.service.security
 
 import com.api.auth.service.Encryptor
-import org.springframework.context.annotation.PropertySource
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
-@PropertySource("classpath:/secure-jwt.properties")
 class JwtTokenProvider (
     private val userDetailsService: UserDetailsService,
     private val encryptor: Encryptor

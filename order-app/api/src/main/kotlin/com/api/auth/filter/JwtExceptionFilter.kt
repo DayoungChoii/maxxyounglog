@@ -30,6 +30,8 @@ class JwtExceptionFilter: OncePerRequestFilter() {
             setErrorResponse(response, AuthExceptionType.EXPIRED_TOKEN)
         } catch (e: JwtException) {
             setErrorResponse(response, AuthExceptionType.INVALID_TOKEN)
+        } catch (e: Exception) {
+            throw e
         }
     }
 
