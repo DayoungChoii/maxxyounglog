@@ -40,7 +40,7 @@ class LoginController(
     }
 
     private fun createCookie(logInResponse: LogInResponse) =
-        ResponseCookie.from(TOKEN_NAME, logInResponse.token)
+        ResponseCookie.from(TOKEN_NAME, logInResponse.accessToken)
             .domain(domain)
             .path("/")
             .httpOnly(true)

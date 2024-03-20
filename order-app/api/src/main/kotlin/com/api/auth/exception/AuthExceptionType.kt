@@ -12,5 +12,5 @@ enum class AuthExceptionType (
     INVALID_EMAIL(HttpStatus.BAD_REQUEST, "invalid email"),
     EXPIRED_TOKEN(HttpStatus.UNAUTHORIZED, "expired token"),
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "invalid token"),
-    REDIS_CONNECTION_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "redis connection fail"),
+    INVALID_PASSWORD(HttpStatus.UNAUTHORIZED, "invalid password")
 }
