@@ -1,9 +1,9 @@
-rootProject.name = "ordertoy"
+rootProject.name = "maxxyounglog"
 
-include("order-domain:rds")
-include("order-domain:redis")
-include("order-app:api")
-include("order-app:batch")
-include("order-app:crm")
-include("order-internal:async")
+include("study-domain:rds")
+include("study-domain:redis")
+include("study-app:api")
+include("study-app:batch")
+include("study-app:crm")
+include("study-internal:async")
 
