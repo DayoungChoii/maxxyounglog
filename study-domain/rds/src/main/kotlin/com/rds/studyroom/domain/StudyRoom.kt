@@ -1,15 +1,14 @@
 package com.rds.studyroom.domain
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import com.rds.category.domain.Category
+import jakarta.persistence.*
 
 @Entity
 class StudyRoom (
     val title: String,
     val explanation: String,
-    val categoryId: Long,
+    @OneToOne(fetch = FetchType.LAZY)
+    val category: Category,
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
