@@ -12,7 +12,7 @@ class User(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L
     @Enumerated(EnumType.STRING)
-    var state: UserState = UserState.ACTIVATED;
+    var state: UserState = UserState.ACTIVATED
 
     fun updatePassword(password: String) {
         this.password = password
