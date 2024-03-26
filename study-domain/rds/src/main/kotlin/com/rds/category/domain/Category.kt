@@ -14,9 +14,9 @@ class Category (
     val id: Long = 0L
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parentId", foreignKey = ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private val parent: Category? = null
+    @JoinColumn(name = "parentId")
+    val parent: Category? = null
 
-    @OneToMany(mappedBy = "parent")
-    private val child: List<Category> = ArrayList()
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
+    val child: List<Category> = ArrayList()
 }

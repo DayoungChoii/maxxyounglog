@@ -16,5 +16,6 @@ class UserStudyRoom (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L
+    @Enumerated(EnumType.STRING)
     var state: UserStudyRoomState = UserStudyRoomState.ACTIVATED
 }
