@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  broker:
+    image: wurstmeister/kafka:2.12-2.5.0
+    container_name: kafka0
+    ports:
+      - "29092:29092"
+      - "39092:39092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER1:PLAINTEXT,LISTENER1_INTERNAL:PLAINTEXT
+      KAFKA_LISTENERS: LISTENER1://kafka0:29092,LISTENER1_INTERNAL://kafka0:39092
+      KAFKA_ADVERTISED_LISTENERS: LISTENER1://localhost:29092,LISTENER1_INTERNAL://kafka0:39092
+      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER1_INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
