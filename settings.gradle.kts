@@ -6,4 +6,5 @@ include("study-app:api")
 include("study-app:batch")
 include("study-app:crm")
 include("study-internal:async")
+include("study-consumer")
 
