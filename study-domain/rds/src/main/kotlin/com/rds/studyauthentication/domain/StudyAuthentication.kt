@@ -13,7 +13,9 @@ class StudyAuthentication (
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     val user: User,
-    val fileName: String
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "authFileName")
+    val authFileId: AuthFile
 
 ) : BaseTimeEntity() {
     @Id
