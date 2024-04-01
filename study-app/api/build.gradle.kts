@@ -24,6 +24,7 @@ object Versions {
 dependencies {
 	implementation(project(":study-domain:rds"))
 	implementation(project(":study-domain:redis"))
+	implementation(project(":study-internal:async"))
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
