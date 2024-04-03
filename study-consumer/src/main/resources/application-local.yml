@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: ${url}
+    username: ${username}
+    password: ${password}
+  jwt:
+    secret: ${secret}
+    token:
+      access-expiration-time: ${access-expiration-time}
+      refresh-expiration-time: ${refresh-expiration-time}

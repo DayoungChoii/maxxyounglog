@@ -8,9 +8,10 @@ class UserPoint (
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     val user: User,
+    val point: Int
 ): BaseTimeEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L
-    val point: Int = 1000
+
 }
