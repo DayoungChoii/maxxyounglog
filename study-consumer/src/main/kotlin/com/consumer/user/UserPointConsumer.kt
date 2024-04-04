@@ -1,5 +1,6 @@
 package com.consumer.user
 
+import com.rds.user.domain.PointActionType
 import com.rds.user.domain.User
 import com.rds.user.domain.UserPoint
 import com.rds.user.domain.UserPointLog
@@ -17,7 +18,7 @@ class UserPointConsumer(
     private val userRepository: UserRepository,
     private val userPointLogRepository: UserPointLogRepository
 ) {
-    @KafkaListener(topics = ["create-user-point"], groupId = "group_1")
+    @KafkaListener(topics = ["create-user-point"], groupId = "point")
     fun listener(data: ConsumerRecord<String, String>) {
         val user = userRepository.findByIdOrNull(data.key().toLong())!!
         val point = data.value().toInt()
@@ -31,7 +32,8 @@ class UserPointConsumer(
     ) {
         val userPointLog = UserPointLog(
             user,
-            point
+            point,
+            PointActionType.ADDED
         )
         userPointLogRepository.save(userPointLog)
     }
