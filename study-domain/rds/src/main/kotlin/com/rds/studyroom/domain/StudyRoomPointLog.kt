@@ -1,6 +1,7 @@
 package com.rds.studyroom.domain
 
 import com.rds.BaseTimeEntity
+import com.rds.user.domain.PointActionType
 import com.rds.user.domain.User
 import jakarta.persistence.*
 
@@ -11,7 +12,8 @@ class StudyRoomPointLog (
     val studyRoom: StudyRoom,
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
-    val user: User
+    val user: User,
+    val pointActionType: PointActionType
 ) : BaseTimeEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
