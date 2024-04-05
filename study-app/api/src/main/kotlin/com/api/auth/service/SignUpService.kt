@@ -5,8 +5,9 @@ import com.api.auth.dto.SignUpRequest
 import com.api.auth.exception.AuthException
 import com.api.auth.exception.AuthExceptionType
 import com.api.common.const.SIGN_UP_POINT
-import com.async.user.UserPointService
+import com.rds.user.event.UserSignedUpEvent
 import com.rds.user.repository.UserRepository
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -14,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional
 class SignUpService (
     private val userRepository: UserRepository,
     private val encryptor: Encryptor,
-    private val userPointService: UserPointService
+    private val eventPublisher: ApplicationEventPublisher
 ){
 
     @Transactional
@@ -26,7 +27,7 @@ class SignUpService (
             val encryptedPassword = encryptor.encrypt(signUpRequest.password)
             signUpRequest.encryptPassword(encryptedPassword)
             val user = userRepository.save(signUpRequest.toUser());
-            userPointService.createPoint(user.id, SIGN_UP_POINT)
+            eventPublisher.publishEvent(UserSignedUpEvent(user.id, SIGN_UP_POINT))
         } catch (e: RuntimeException) {
             throw AuthException(AuthExceptionType.SIGN_UP_FAIL, e)
         }
