@@ -12,11 +12,14 @@ class StudyRoomPointLog (
     val studyRoom: StudyRoom,
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
-    val user: User,
-    val pointActionType: PointActionType
+    val user: User? = null,
+    @Enumerated(EnumType.STRING)
+    val pointActionType: PointActionType,
+    val point: Int,
+    @Enumerated(EnumType.STRING)
+    val providerType: ProviderType
 ) : BaseTimeEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L
-    var point: Int = 0
 }

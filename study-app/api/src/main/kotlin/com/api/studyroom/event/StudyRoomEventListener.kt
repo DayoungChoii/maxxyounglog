@@ -1,20 +1,17 @@
 package com.api.studyroom.event
 
-import com.rds.studyroom.domain.StudyRoomPoint
-import com.rds.studyroom.repository.StudyRoomPointRepository
-import com.rds.studyroom.repository.StudyRoomRepository
-import org.springframework.context.event.EventListener
-import org.springframework.data.repository.findByIdOrNull
+import com.async.studyroom.StudyPointService
+import com.rds.studyroom.event.StudyRoomCreatedEvent
 import org.springframework.stereotype.Component
+import org.springframework.transaction.event.TransactionPhase
+import org.springframework.transaction.event.TransactionalEventListener
 
 @Component
 class StudyRoomEventListener (
-    private val studyRoomPointRepository: StudyRoomPointRepository,
-    private val studyRoomRepository: StudyRoomRepository
+    private val studyPointService: StudyPointService
 ) {
-    @EventListener
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     fun createStudyRoomPoint(event: StudyRoomCreatedEvent) {
-        val studyRoom = studyRoomRepository.findByIdOrNull(event.studyRoomId)!!
-        studyRoomPointRepository.save(StudyRoomPoint(studyRoom))
+        studyPointService.createPoint(event.studyRoomId, event.studyPoint)
     }
 }
