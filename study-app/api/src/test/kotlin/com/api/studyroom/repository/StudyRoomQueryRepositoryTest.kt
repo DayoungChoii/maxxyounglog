@@ -19,31 +19,47 @@ class StudyRoomQueryRepositoryTest @Autowired constructor (
 ) {
 
     val fixture = kotlinFixture()
+    val pageSize = 10L
 
     @Test
     fun findStudyRoomListTest() {
         // given
+        saveStudyRoomList(fixture<Category>(), "testTitle")
+
+        // when
+        val findStudyRoomList = studyRoomQueryDslRepository.findStudyRoomList(StudyRoomSearch(null, null), null, pageSize)
+
+        // then
+        Assertions.assertThat(findStudyRoomList).hasSize(pageSize.toInt())
+    }
+
+    @Test
+    fun findStudyRoomListSearchTest() {
+        // given
         val category = fixture<Category>()
+        val title = "testTitle"
+        saveStudyRoomList(category, title)
+
+        // when
+        val findStudyRoomList = studyRoomQueryDslRepository.findStudyRoomList(StudyRoomSearch(title, category), null, pageSize)
+
+        // then
+        Assertions.assertThat(findStudyRoomList).hasSize(pageSize.toInt())
+    }
+
+    private fun saveStudyRoomList(category: Category, title: String) {
         categoryRepository.save(category)
 
         val studyRoomList = ArrayList<StudyRoom>()
-        for(i in 1..100){
+        for (i in 1..100) {
             val studyRoom = fixture<StudyRoom>() {
-                property(StudyRoom::category) {category}
+                property(StudyRoom::category) { category }
+                property(StudyRoom::title) {title}
             }
             studyRoomList.add(studyRoom)
         }
-
         studyRoomRepository.saveAll(studyRoomList)
-
-        // when
-        val findStudyRoomList = studyRoomQueryDslRepository.findStudyRoomList(StudyRoomSearch(null, null), null, 10)
-
-        // then
-        Assertions.assertThat(findStudyRoomList).hasSize(10)
     }
-
-
 
 
 }
