@@ -8,7 +8,7 @@ import jakarta.persistence.*
 class StudyRoom (
     val title: String,
     val explanation: String,
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     val category: Category,
 ): BaseTimeEntity() {
     @Id
