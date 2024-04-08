@@ -1,13 +1,13 @@
 package com.rds.user
 
+import com.rds.common.RepositoryTest
 import com.rds.user.domain.User
 import com.rds.user.repository.UserRepository
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest
+@RepositoryTest
 class UserTest @Autowired constructor(
     val userRepository: UserRepository
 ){
