@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    active: local
+    active: test
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
@@ -57,3 +57,12 @@ spring:
 domain: localhost
 kafka:
   bootstrap-servers: localhost:9092
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  jpa:
+    hibernate:
+      ddl-auto: none
+domain: localhost
