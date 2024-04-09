@@ -11,6 +11,7 @@ import com.api.studyroom.repository.StudyRoomQueryRepository
 import com.rds.category.repository.CategoryRepository
 import com.rds.studyroom.event.StudyRoomCreatedEvent
 import com.rds.studyroom.repository.StudyRoomRepository
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -33,6 +34,7 @@ class StudyRoomService (
         return SUCCESS
     }
 
+    @Cacheable("studyRoomList")
     fun getStudyRoomList(request: StudyRoomListRequest): StudyRoomListResponse? {
         val findStudyRoomList = studyRoomQueryRepository.findStudyRoomList(request.studyRoomSearch, request.studyRoomId, request.pageSize)
         return StudyRoomListResponse(findStudyRoomList?.map{SimpleStudyRoomDto.of(it)} ?: null)
