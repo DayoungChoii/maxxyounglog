@@ -1,8 +1,11 @@
 package com.api.studyroom.service
 
+import com.api.studyroom.StudyRoomProvider
 import com.api.studyroom.constant.StudyRoomCreationStatus.INVALID_CATEGORY
 import com.api.studyroom.constant.StudyRoomCreationStatus.SUCCESS
 import com.api.studyroom.dto.StudyRoomCreationRequest
+import com.api.studyroom.dto.StudyRoomListRequest
+import com.api.studyroom.dto.StudyRoomSearch
 import com.api.studyroom.repository.StudyRoomQueryRepository
 import com.appmattus.kotlinfixture.kotlinFixture
 import com.rds.category.domain.Category
@@ -39,6 +42,24 @@ class StudyRoomServiceTest: BehaviorSpec({
             every { eventPublisher.publishEvent(any()) } returns Unit
             `then`("완료 상태를 반환한다.") {
                 studyRoomService.createStudyRoom(request) shouldBe SUCCESS
+            }
+        }
+    }
+
+    `given`("스터디방 목록 조회 시") {
+        `when`("studyRoom 엔티티를 조회하면") {
+            every {studyRoomQueryRepository.findStudyRoomList(any(StudyRoomSearch::class), any(Long::class), any(Long::class))} returns StudyRoomProvider.createStudyRooms(fixture<Category>(), "title", 10)
+            `then` ("studyRoomListResponse로 반환한다.") {
+                val studyRoomResponse = studyRoomService.getStudyRoomList(
+                    StudyRoomListRequest(
+                        studyRoomSearch = StudyRoomSearch("title", 3L),
+                        studyRoomId = null,
+                        pageSize = 10
+                    )
+                )
+                studyRoomResponse!!.simpleStudyRoomDtoList!!.size shouldBe 10
+                studyRoomResponse.simpleStudyRoomDtoList!!.first().title shouldBe "title1"
+                studyRoomResponse.simpleStudyRoomDtoList!!.last().title shouldBe "title10"
             }
         }
     }
