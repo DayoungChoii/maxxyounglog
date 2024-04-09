@@ -34,7 +34,7 @@ class StudyRoomService (
         return SUCCESS
     }
 
-    @Cacheable("studyRoomList")
+    @Cacheable(cacheNames = ["shortTerm"])
     fun getStudyRoomList(request: StudyRoomListRequest): StudyRoomListResponse? {
         val findStudyRoomList = studyRoomQueryRepository.findStudyRoomList(request.studyRoomSearch, request.studyRoomId, request.pageSize)
         return StudyRoomListResponse(findStudyRoomList?.map{SimpleStudyRoomDto.of(it)} ?: null)
