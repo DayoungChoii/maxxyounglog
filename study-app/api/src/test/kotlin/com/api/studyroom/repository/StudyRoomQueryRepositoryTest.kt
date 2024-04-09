@@ -43,7 +43,7 @@ class StudyRoomQueryRepositoryTest @Autowired constructor (
         saveStudyRoomList(category, title)
 
         // when
-        val findStudyRoomList = studyRoomQueryDslRepository.findStudyRoomList(StudyRoomSearch(title, category), null, pageSize)
+        val findStudyRoomList = studyRoomQueryDslRepository.findStudyRoomList(StudyRoomSearch(title, category.id), null, pageSize)
 
         // then
         Assertions.assertThat(findStudyRoomList).hasSize(pageSize.toInt())

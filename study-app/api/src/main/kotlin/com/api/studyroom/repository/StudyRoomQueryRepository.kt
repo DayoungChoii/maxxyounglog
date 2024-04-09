@@ -3,7 +3,6 @@ package com.api.studyroom.repository
 import com.api.studyroom.dto.StudyRoomSearch
 import com.querydsl.core.types.dsl.BooleanExpression
 import com.querydsl.jpa.impl.JPAQueryFactory
-import com.rds.category.domain.Category
 import com.rds.category.domain.QCategory.category
 import com.rds.studyroom.domain.QStudyRoom.studyRoom
 import com.rds.studyroom.domain.StudyRoom
@@ -32,13 +31,13 @@ class StudyRoomQueryRepository (
     }
 
     private fun studyRoomIdLt(studyRoomId: Long?): BooleanExpression? =
-        studyRoomId?.let { studyRoom.id.lt(it) }
+        studyRoomId?.let { studyRoom.id.lt(it) } ?: null
 
     private fun titleLike(title: String?): BooleanExpression? =
-        title?.let { studyRoom.title.like("$title%")}
+        title?.let { studyRoom.title.like("$title%")} ?: null
 
-    private fun categoryEq(category: Category?): BooleanExpression? =
-        category?.let { studyRoom.category.eq(category) }
+    private fun categoryEq(category: Long?): BooleanExpression? =
+        category?.let { studyRoom.category.id.eq(category) } ?: null
 
 
 

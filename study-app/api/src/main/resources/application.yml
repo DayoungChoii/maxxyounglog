@@ -8,11 +8,11 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create
-      default_batch_fetch_size: 100
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+        default_batch_fetch_size: 100
   data:
     redis:
       host: localhost

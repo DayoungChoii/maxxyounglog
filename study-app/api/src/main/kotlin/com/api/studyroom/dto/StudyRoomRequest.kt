@@ -10,7 +10,7 @@ data class StudyRoomCreationRequest (
     val title: String,
 
     @field:NotBlank
-    var explanation: String,
+    val explanation: String,
 
     @field:NotNull
     val categoryId: Long,
@@ -22,3 +22,9 @@ data class StudyRoomCreationRequest (
             category = category
         )
 }
+
+data class StudyRoomListRequest(
+    val studyRoomSearch: StudyRoomSearch,
+    val studyRoomId: Long?,
+    val pageSize: Long
+)

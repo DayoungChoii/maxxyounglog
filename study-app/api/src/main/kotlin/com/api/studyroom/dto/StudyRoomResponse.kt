@@ -1,9 +1,29 @@
 package com.api.studyroom.dto
 
-import com.api.auth.constant.LogInStatus
+import com.rds.studyroom.domain.StudyRoom
+import com.rds.studyroom.domain.StudyRoomState
 
-data class LogInResponse (
-    val status: LogInStatus,
-    val accessToken: String = "",
-    val refreshToken: String = ""
+data class StudyRoomListResponse (
+    val simpleStudyRoomDtoList: List<SimpleStudyRoomDto>?
 )
+
+data class SimpleStudyRoomDto (
+    val studyRoomId: Long,
+    val title: String,
+    val explanation: String,
+    val category: String,
+    val participantNum: Int,
+    val state: StudyRoomState
+) {
+    companion object {
+        fun of(studyRoom: StudyRoom) =
+            SimpleStudyRoomDto(
+                studyRoomId =  studyRoom.id,
+                title = studyRoom.title,
+                explanation = studyRoom.explanation,
+                category = studyRoom.category.name,
+                participantNum = studyRoom.userStudyRoom.size,
+                state = studyRoom.state
+            )
+    }
+}

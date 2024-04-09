@@ -3,6 +3,7 @@ package com.api.studyroom.service
 import com.api.studyroom.constant.StudyRoomCreationStatus.INVALID_CATEGORY
 import com.api.studyroom.constant.StudyRoomCreationStatus.SUCCESS
 import com.api.studyroom.dto.StudyRoomCreationRequest
+import com.api.studyroom.repository.StudyRoomQueryRepository
 import com.appmattus.kotlinfixture.kotlinFixture
 import com.rds.category.domain.Category
 import com.rds.category.repository.CategoryRepository
@@ -19,7 +20,8 @@ class StudyRoomServiceTest: BehaviorSpec({
     val studyRoomRepository: StudyRoomRepository = mockk<StudyRoomRepository>()
     val categoryRepository: CategoryRepository = mockk<CategoryRepository>()
     val eventPublisher: ApplicationEventPublisher = mockk<ApplicationEventPublisher>(relaxed = true)
-    val studyRoomService: StudyRoomService = StudyRoomService(studyRoomRepository, categoryRepository, eventPublisher)
+    val studyRoomQueryRepository: StudyRoomQueryRepository = mockk<StudyRoomQueryRepository>()
+    val studyRoomService: StudyRoomService = StudyRoomService(studyRoomRepository, categoryRepository, studyRoomQueryRepository, eventPublisher)
     val fixture  = kotlinFixture()
 
     `given`("스터디방 생성 시") {
