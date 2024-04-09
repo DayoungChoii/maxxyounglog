@@ -1,21 +1,17 @@
 package com.api.studyroom.repository
 
+import com.api.common.IntegrationTest
+import com.api.studyroom.StudyRoomProvider
 import com.api.studyroom.dto.StudyRoomSearch
 import com.appmattus.kotlinfixture.kotlinFixture
 import com.rds.category.domain.Category
 import com.rds.category.repository.CategoryRepository
-import com.rds.studyroom.domain.StudyRoom
 import com.rds.studyroom.repository.StudyRoomRepository
-import org.assertj.core.api.Assertions.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ActiveProfiles
-import org.springframework.transaction.annotation.Transactional
 
-@ActiveProfiles("test")
-@SpringBootTest
-@Transactional
+@IntegrationTest
 class StudyRoomQueryRepositoryTest @Autowired constructor (
     val studyRoomQueryDslRepository: StudyRoomQueryRepository,
     val studyRoomRepository: StudyRoomRepository,
@@ -70,15 +66,7 @@ class StudyRoomQueryRepositoryTest @Autowired constructor (
 
     private fun saveStudyRoomList(category: Category, title: String, studyRoomNum: Int) {
         categoryRepository.save(category)
-
-        val studyRoomList = ArrayList<StudyRoom>()
-        for (i in 1..studyRoomNum) {
-            val studyRoom = fixture<StudyRoom>() {
-                property(StudyRoom::category) { category }
-                property(StudyRoom::title) { title + i }
-            }
-            studyRoomList.add(studyRoom)
-        }
+        val studyRoomList = StudyRoomProvider.createStudyRooms(category, title, studyRoomNum)
         studyRoomRepository.saveAll(studyRoomList)
     }
 

@@ -64,5 +64,5 @@ spring:
       on-profile: test
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
 domain: localhost
