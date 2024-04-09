@@ -6,14 +6,16 @@ import com.rds.category.domain.Category
 import com.rds.category.repository.CategoryRepository
 import com.rds.studyroom.domain.StudyRoom
 import com.rds.studyroom.repository.StudyRoomRepository
-import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
+import org.springframework.transaction.annotation.Transactional
 
 @ActiveProfiles("test")
 @SpringBootTest
+@Transactional
 class StudyRoomQueryRepositoryTest @Autowired constructor (
     val studyRoomQueryDslRepository: StudyRoomQueryRepository,
     val studyRoomRepository: StudyRoomRepository,
@@ -24,15 +26,31 @@ class StudyRoomQueryRepositoryTest @Autowired constructor (
     val pageSize = 10L
 
     @Test
-    fun findStudyRoomListTest() {
+    fun findStudyRoomListTest_firstPage() {
         // given
-        saveStudyRoomList(fixture<Category>(), "testTitle")
+        saveStudyRoomList(fixture<Category>(), "testTitle", 30)
 
         // when
         val findStudyRoomList = studyRoomQueryDslRepository.findStudyRoomList(StudyRoomSearch(null, null), null, pageSize)
 
         // then
-        Assertions.assertThat(findStudyRoomList).hasSize(pageSize.toInt())
+        assertThat(findStudyRoomList).hasSize(pageSize.toInt())
+        assertThat(findStudyRoomList!!.first().title).isEqualTo("testTitle30")
+        assertThat(findStudyRoomList.last().title).isEqualTo("testTitle21")
+    }
+
+    @Test
+    fun findStudyRoomListTest_secondPage() {
+        // given
+        saveStudyRoomList(fixture<Category>(), "testTitle", 30)
+
+        // when
+        val findStudyRoomList = studyRoomQueryDslRepository.findStudyRoomList(StudyRoomSearch(null, null), 21, pageSize)
+
+        // then
+        assertThat(findStudyRoomList).hasSize(pageSize.toInt())
+        assertThat(findStudyRoomList!!.first().title).isEqualTo("testTitle20")
+        assertThat(findStudyRoomList.last().title).isEqualTo("testTitle11")
     }
 
     @Test
@@ -40,23 +58,24 @@ class StudyRoomQueryRepositoryTest @Autowired constructor (
         // given
         val category = fixture<Category>()
         val title = "testTitle"
-        saveStudyRoomList(category, title)
+        saveStudyRoomList(category, title, 30)
 
         // when
-        val findStudyRoomList = studyRoomQueryDslRepository.findStudyRoomList(StudyRoomSearch(title, category.id), null, pageSize)
+        val findStudyRoomList = studyRoomQueryDslRepository.findStudyRoomList(StudyRoomSearch(title + "30", category.id), null, pageSize)
 
         // then
-        Assertions.assertThat(findStudyRoomList).hasSize(pageSize.toInt())
+        assertThat(findStudyRoomList).hasSize(1)
+        assertThat(findStudyRoomList!!.first().title).isEqualTo("testTitle30")
     }
 
-    private fun saveStudyRoomList(category: Category, title: String) {
+    private fun saveStudyRoomList(category: Category, title: String, studyRoomNum: Int) {
         categoryRepository.save(category)
 
         val studyRoomList = ArrayList<StudyRoom>()
-        for (i in 1..100) {
+        for (i in 1..studyRoomNum) {
             val studyRoom = fixture<StudyRoom>() {
                 property(StudyRoom::category) { category }
-                property(StudyRoom::title) {title}
+                property(StudyRoom::title) { title + i }
             }
             studyRoomList.add(studyRoom)
         }
