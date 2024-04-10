@@ -18,4 +18,8 @@ class UserStudyRoom (
     val id: Long = 0L
     @Enumerated(EnumType.STRING)
     var state: UserStudyRoomState = UserStudyRoomState.ACTIVATED
+
+    fun joinStudyRoom() {
+        this.state = UserStudyRoomState.ACTIVATED
+    }
 }

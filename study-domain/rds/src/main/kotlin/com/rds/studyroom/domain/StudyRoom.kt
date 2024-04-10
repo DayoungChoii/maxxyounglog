@@ -15,7 +15,7 @@ class StudyRoom (
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L
     @Enumerated(EnumType.STRING)
-    val state: StudyRoomState = StudyRoomState.ACTIVATED
+    var state: StudyRoomState = StudyRoomState.ACTIVATED
     @OneToMany(fetch = FetchType.LAZY)
     val userStudyRoom: List<UserStudyRoom> = ArrayList()
 }
