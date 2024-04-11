@@ -25,7 +25,8 @@ class DatabaseCleaner @Autowired constructor(
         entityManager.createNativeQuery("SET foreign_key_checks = 0").executeUpdate()
 
         for (tableName in tableNames) {
-            entityManager.createNativeQuery("TRUNCATE TABLE $tableName; ALTER TABLE $tableName ALTER COLUMN ID RESTART WITH 1;").executeUpdate()
+            entityManager.createNativeQuery("TRUNCATE TABLE $tableName;").executeUpdate()
+            entityManager.createNativeQuery("ALTER TABLE $tableName AUTO_INCREMENT = 1;").executeUpdate()
         }
 
         entityManager.createNativeQuery("SET foreign_key_checks = 1").executeUpdate()

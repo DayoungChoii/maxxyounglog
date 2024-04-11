@@ -36,6 +36,7 @@ dependencies {
 	kapt ("com.querydsl:querydsl-apt:5.0.0:jakarta")
 
 	runtimeOnly("com.h2database:h2")
+	runtimeOnly("com.mysql:mysql-connector-j")
 
 	testImplementation("io.kotest:kotest-runner-junit5-jvm:4.6.0")
 	testImplementation ("org.springframework.security:spring-security-test")
