@@ -23,7 +23,7 @@ data class SimpleStudyRoomDto (
                 title = studyRoom.title,
                 explanation = studyRoom.explanation,
                 category = studyRoom.category.name,
-                participantNum = studyRoom.userStudyRoom.size,
+                participantNum = studyRoom.userStudyRooms.size,
                 state = studyRoom.state
             )
     }

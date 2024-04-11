@@ -50,6 +50,9 @@ class StudyRoomService (
 
     @Transactional
     fun joinStudyRoom(studyRoomId: Long, userId: Long): StudyRoomJoinStatus {
+        val currentStudyRoomUserNum = userStudyRoomRepository.countByStudyRoom(studyRoomId)
+        if(currentStudyRoomUserNum > 10) return StudyRoomJoinStatus.OUT_OF_STUDY_ROOM_USER
+
         val validateResult = studyRoomJoinValidator.validate(Pair(studyRoomId, userId))
         if(validateResult == StudyRoomJoinValidatorStatus.SUCCESS){
             saveUserStudyRoom(studyRoomId, userId)

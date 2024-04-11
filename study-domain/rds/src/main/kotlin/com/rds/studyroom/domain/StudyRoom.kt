@@ -16,6 +16,6 @@ class StudyRoom (
     val id: Long = 0L
     @Enumerated(EnumType.STRING)
     var state: StudyRoomState = StudyRoomState.ACTIVATED
-    @OneToMany(fetch = FetchType.LAZY)
-    val userStudyRoom: List<UserStudyRoom> = ArrayList()
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "studyRoom")
+    val userStudyRooms: List<UserStudyRoom> = ArrayList()
 }
