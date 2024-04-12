@@ -25,6 +25,7 @@ dependencies {
 	implementation("com.google.code.gson:gson:2.8.8")
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
 	implementation("org.springframework.boot:spring-boot-starter-cache")
+	implementation("org.redisson:redisson-spring-boot-starter:3.21.1")
 
 	//jwt
 	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
