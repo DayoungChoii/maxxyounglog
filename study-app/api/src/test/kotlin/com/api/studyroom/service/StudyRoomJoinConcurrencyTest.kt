@@ -24,7 +24,8 @@ class StudyRoomJoinConcurrencyTest @Autowired constructor(
     val studyRoomRepository: StudyRoomRepository,
     val userStudyRoomRepository: UserStudyRoomRepository,
     val categoryRepository: CategoryRepository,
-    val userRepository: UserRepository
+    val userRepository: UserRepository,
+    val studyRoomServiceLockFacade: StudyRoomServiceLockFacade
 ) {
 
     val fixture = kotlinFixture()
@@ -54,6 +55,38 @@ class StudyRoomJoinConcurrencyTest @Autowired constructor(
             }
         }
         latch.await()
+
+        //then
+        val userCount = userStudyRoomRepository.countByStudyRoom(studyRoomId)
+        Assertions.assertThat(userCount).isGreaterThan(10)
+    }
+
+    @Test
+    fun studyRoomJoinConcurrencyRedissonTest() {
+        //given
+        val threadCount = 100
+
+        val category = categoryRepository.save(fixture<Category>())
+        val studyRoom = studyRoomRepository.save(fixture<StudyRoom>() {
+            property(StudyRoom::category) { category }
+            property(StudyRoom::state) { StudyRoomState.ACTIVATED }
+        })
+        val studyRoomId = studyRoom.id
+        val users = (1..threadCount).map { userRepository.save(fixture<User> { property(User::state) { UserState.ACTIVATED } }) }
+
+        val executorService: ExecutorService = Executors.newFixedThreadPool(32)
+        val latch = CountDownLatch(threadCount)
+
+        //when
+        for (user in users) {
+            executorService.execute {
+                val response = studyRoomServiceLockFacade.joinStudyRoom(studyRoomId, user.id)
+                println(">>> response: $response")
+                latch.countDown()
+            }
+        }
+        latch.await()
+        Thread.sleep(5000)
 
         //then
         val userCount = userStudyRoomRepository.countByStudyRoom(studyRoomId)
