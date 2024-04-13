@@ -1,31 +1,15 @@
 package com.api.studyroom.service
 
-import org.redisson.api.RedissonClient
+import com.api.common.RedisLockExecutor
 import org.springframework.stereotype.Component
-import java.util.concurrent.TimeUnit
 
 @Component
 class StudyRoomServiceLockFacade (
     private val studyRoomService: StudyRoomService,
-    private val redissonClient: RedissonClient
+    private val redisLockExecutor: RedisLockExecutor
 ) {
 
     fun joinStudyRoom(studyRoomId: Long, userId: Long) {
-        val lock = redissonClient.getLock(studyRoomId.toString())
-
-        try {
-            val available = lock.tryLock(10, 1, TimeUnit.SECONDS)
-
-            if (!available) {
-                return
-            }
-
-            studyRoomService.joinStudyRoom(studyRoomId, userId)
-
-        } catch (e: InterruptedException) {
-            throw RuntimeException(e)
-        } finally {
-            lock.unlock()
-        }
+        redisLockExecutor.execute(studyRoomId) {studyRoomService.joinStudyRoom(studyRoomId, userId)}
     }
 }
