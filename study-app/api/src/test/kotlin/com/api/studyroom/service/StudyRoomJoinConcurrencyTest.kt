@@ -29,32 +29,25 @@ class StudyRoomJoinConcurrencyTest @Autowired constructor(
 ) {
 
     val fixture = kotlinFixture()
+    val threadCount = 50
+
 
     @Test
     fun studyRoomJoinConcurrencyTest() {
         //given
-        val threadCount = 50
-
-        val category = categoryRepository.save(fixture<Category>())
-        val studyRoom = studyRoomRepository.save(fixture<StudyRoom>() {
-        property(StudyRoom::category) { category }
-        property(StudyRoom::state) { StudyRoomState.ACTIVATED }
-        })
-        val studyRoomId = studyRoom.id
-        val users = (1..threadCount).map { userRepository.save(fixture<User> { property(User::state) { UserState.ACTIVATED } }) }
-
+        val (studyRoomId, users) = saveEntitiesForStudyRoom()
         val executorService: ExecutorService = Executors.newFixedThreadPool(32)
         val latch = CountDownLatch(threadCount)
 
         //when
         for (user in users) {
             executorService.execute {
-                val response = studyRoomService.joinStudyRoom(studyRoomId, user.id)
-                println(">>> response: $response")
+                studyRoomService.joinStudyRoom(studyRoomId, user.id)
                 latch.countDown()
             }
         }
         latch.await()
+        Thread.sleep(5000)
 
         //then
         val userCount = userStudyRoomRepository.countByStudyRoom(studyRoomId)
@@ -64,24 +57,14 @@ class StudyRoomJoinConcurrencyTest @Autowired constructor(
     @Test
     fun studyRoomJoinConcurrencyRedissonTest() {
         //given
-        val threadCount = 100
-
-        val category = categoryRepository.save(fixture<Category>())
-        val studyRoom = studyRoomRepository.save(fixture<StudyRoom>() {
-            property(StudyRoom::category) { category }
-            property(StudyRoom::state) { StudyRoomState.ACTIVATED }
-        })
-        val studyRoomId = studyRoom.id
-        val users = (1..threadCount).map { userRepository.save(fixture<User> { property(User::state) { UserState.ACTIVATED } }) }
-
+        val (studyRoomId, users) = saveEntitiesForStudyRoom()
         val executorService: ExecutorService = Executors.newFixedThreadPool(32)
         val latch = CountDownLatch(threadCount)
 
         //when
         for (user in users) {
             executorService.execute {
-                val response = studyRoomServiceLockFacade.joinStudyRoom(studyRoomId, user.id)
-                println(">>> response: $response")
+                studyRoomServiceLockFacade.joinStudyRoom(studyRoomId, user.id)
                 latch.countDown()
             }
         }
@@ -92,4 +75,16 @@ class StudyRoomJoinConcurrencyTest @Autowired constructor(
         val userCount = userStudyRoomRepository.countByStudyRoom(studyRoomId)
         Assertions.assertThat(userCount).isEqualTo(10)
     }
+    private fun saveEntitiesForStudyRoom(): Pair<Long, List<User>> {
+        val category = categoryRepository.save(fixture<Category>())
+        val studyRoom = studyRoomRepository.save(fixture<StudyRoom>() {
+            property(StudyRoom::category) { category }
+            property(StudyRoom::state) { StudyRoomState.ACTIVATED }
+        })
+        val studyRoomId = studyRoom.id
+        val users =
+            (1..threadCount).map { userRepository.save(fixture<User> { property(User::state) { UserState.ACTIVATED } }) }
+        return Pair(studyRoomId, users)
+    }
+
 }
