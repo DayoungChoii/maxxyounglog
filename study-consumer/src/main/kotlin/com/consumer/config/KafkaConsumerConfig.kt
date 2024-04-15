@@ -21,6 +21,7 @@ class KafkaConsumerConfig (
             org.apache.kafka.common.serialization.StringDeserializer::class.java
         config[ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG] =
             org.apache.kafka.common.serialization.StringDeserializer::class.java
+        config[ConsumerConfig.ISOLATION_LEVEL_CONFIG] = "read_committed"
         return DefaultKafkaConsumerFactory(config)
     }
 

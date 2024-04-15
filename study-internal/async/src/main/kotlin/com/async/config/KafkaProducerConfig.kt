@@ -20,6 +20,8 @@ class KafkaProducerConfig (
         config[ProducerConfig.BOOTSTRAP_SERVERS_CONFIG] = bootstrapServers
         config[ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG] = StringSerializer::class.java
         config[ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG] = StringSerializer::class.java
+        config[ProducerConfig.TRANSACTIONAL_ID_CONFIG] = "point-transaction-id"
+
         return DefaultKafkaProducerFactory(config)
     }
 
