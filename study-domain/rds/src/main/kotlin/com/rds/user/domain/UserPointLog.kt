@@ -5,7 +5,7 @@ import jakarta.persistence.*
 
 @Entity
 class UserPointLog (
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     val user: User,
     val point: Int,

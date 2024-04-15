@@ -5,13 +5,17 @@ import jakarta.persistence.*
 
 @Entity
 class UserPoint (
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     val user: User,
-    val point: Int
+    var point: Int
 ): BaseTimeEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L
+
+    fun sub(point: Int) {
+        this.point -= point
+    }
 
 }

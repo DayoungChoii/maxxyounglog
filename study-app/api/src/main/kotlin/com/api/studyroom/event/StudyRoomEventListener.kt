@@ -15,4 +15,9 @@ class StudyRoomEventListener (
     fun createStudyRoomPoint(event: StudyRoomCreatedEvent) {
         studyPointService.createStudyRoom(event.studyRoomId, event.studyPoint)
     }
+
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    fun subStudyPoint(event: StudyRoomJoinedEvent) {
+        studyPointService.joinStudyRoom(event.studyRoomId, event.userId, event.studyPoint)
+    }
 }

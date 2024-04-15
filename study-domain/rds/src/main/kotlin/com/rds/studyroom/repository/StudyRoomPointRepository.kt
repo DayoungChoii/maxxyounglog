@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface StudyRoomPointRepository : JpaRepository<StudyRoomPoint, Long>
+interface StudyRoomPointRepository : JpaRepository<StudyRoomPoint, Long> {
+    fun findByStudyRoomId(studyRoom:Long): StudyRoomPoint
+}

@@ -7,10 +7,10 @@ import jakarta.persistence.*
 
 @Entity
 class StudyRoomPointLog (
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "studyRoomId")
     val studyRoom: StudyRoom,
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     val user: User? = null,
     @Enumerated(EnumType.STRING)

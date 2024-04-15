@@ -1,7 +1,6 @@
 package com.async.studyroom
 
 interface StudyPointService {
-    fun createStudyRoom(userId: Long, point: Int)
-    fun addPoint(userId: Long, point: Int)
-    fun subPoint(userId: Long, point: Int)
+    fun createStudyRoom(studyRoomId: Long, point: Int)
+    fun joinStudyRoom(studyRoomId: Long, userId: Long, point: Int)
 }

@@ -1,6 +1,7 @@
 package com.api.studyroom.service
 
 import com.api.common.const.CREATE_STUDY_POINT
+import com.api.common.const.JOIN_POINT
 import com.api.studyroom.constant.StudyRoomCreationStatus
 import com.api.studyroom.constant.StudyRoomCreationStatus.SUCCESS
 import com.api.studyroom.constant.StudyRoomJoinStatus
@@ -10,6 +11,7 @@ import com.api.studyroom.repository.StudyRoomQueryRepository
 import com.rds.category.repository.CategoryRepository
 import com.rds.studyroom.domain.UserStudyRoom
 import com.rds.studyroom.event.StudyRoomCreatedEvent
+import com.rds.studyroom.event.StudyRoomJoinedEvent
 import com.rds.studyroom.repository.StudyRoomRepository
 import com.rds.studyroom.repository.UserStudyRoomRepository
 import com.rds.user.repository.UserRepository
@@ -56,6 +58,8 @@ class StudyRoomService (
         } else if (validateResult == StudyRoomJoinValidatorStatus.RESIGNED_USER) {
             updateUserStudyRoom(studyRoomId, userId)
         }
+
+        eventPublisher.publishEvent(StudyRoomJoinedEvent(studyRoomId, userId, JOIN_POINT))
         return convertValidationToResponse(validateResult)
     }
 

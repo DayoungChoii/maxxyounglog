@@ -1,6 +1,8 @@
 package com.consumer.user
 
 import com.rds.user.domain.PointActionType
+import com.rds.user.domain.PointActionType.ADDED
+import com.rds.user.domain.PointActionType.SUBTRACTED
 import com.rds.user.domain.User
 import com.rds.user.domain.UserPoint
 import com.rds.user.domain.UserPointLog
@@ -11,6 +13,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 
 @Component
 class UserPointConsumer(
@@ -19,21 +22,23 @@ class UserPointConsumer(
     private val userPointLogRepository: UserPointLogRepository
 ) {
     @KafkaListener(topics = ["create-user-point"], groupId = "point")
-    fun listener(data: ConsumerRecord<String, String>) {
+    @Transactional
+    fun createUserPoint(data: ConsumerRecord<String, String>) {
         val user = userRepository.findByIdOrNull(data.key().toLong())!!
         val point = data.value().toInt()
         saveUserPoint(user, point)
-        saveUserPointLog(user, point)
+        saveUserPointLog(user, point, ADDED)
     }
 
     private fun saveUserPointLog(
         user: User,
-        point: Int
+        point: Int,
+        type: PointActionType
     ) {
         val userPointLog = UserPointLog(
             user,
             point,
-            PointActionType.ADDED
+            type
         )
         userPointLogRepository.save(userPointLog)
     }
@@ -47,6 +52,18 @@ class UserPointConsumer(
             point
         )
         userPointRepository.save(userPoint)
+    }
+
+    @KafkaListener(topics = ["sub-user-point"], groupId = "point")
+    @Transactional
+    fun subUserPoint(data: ConsumerRecord<String, String>) {
+        val userId = data.key().toLong()
+        val point = data.value().toInt()
+        val user = userRepository.findByIdOrNull(userId)!!
+
+        val findUserPoint = userPointRepository.findByUserId(userId)
+        findUserPoint.sub(point)
+        saveUserPointLog(user, point, SUBTRACTED)
     }
 
 }
