@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component
 class StudyPointProducer(
     private val kafkaTemplate: KafkaTemplate<String, String>
 ): StudyPointService {
-    override fun createPoint(userId: Long, point: Int) {
-        kafkaTemplate.send("create-study-point", userId.toString(), point.toString())
+    override fun createStudyRoom(studyRoomId: Long, point: Int) {
+        kafkaTemplate.send("create-study-point", studyRoomId.toString(), point.toString())
     }
 
     override fun addPoint(userId: Long, point: Int) {
