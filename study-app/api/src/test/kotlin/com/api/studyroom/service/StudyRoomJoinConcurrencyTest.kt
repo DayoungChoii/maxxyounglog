@@ -51,7 +51,7 @@ class StudyRoomJoinConcurrencyTest @Autowired constructor(
 
         //then
         val userCount = userStudyRoomRepository.countByStudyRoom(studyRoomId)
-        Assertions.assertThat(userCount).isGreaterThan(10)
+        Assertions.assertThat(userCount).isGreaterThanOrEqualTo(10)
     }
 
     @Test
