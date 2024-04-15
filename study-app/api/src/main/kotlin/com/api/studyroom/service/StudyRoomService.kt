@@ -5,10 +5,7 @@ import com.api.studyroom.constant.StudyRoomCreationStatus
 import com.api.studyroom.constant.StudyRoomCreationStatus.SUCCESS
 import com.api.studyroom.constant.StudyRoomJoinStatus
 import com.api.studyroom.constant.StudyRoomJoinValidatorStatus
-import com.api.studyroom.dto.SimpleStudyRoomDto
-import com.api.studyroom.dto.StudyRoomCreationRequest
-import com.api.studyroom.dto.StudyRoomListRequest
-import com.api.studyroom.dto.StudyRoomListResponse
+import com.api.studyroom.dto.*
 import com.api.studyroom.repository.StudyRoomQueryRepository
 import com.rds.category.repository.CategoryRepository
 import com.rds.studyroom.domain.UserStudyRoom
@@ -81,6 +78,12 @@ class StudyRoomService (
             StudyRoomJoinValidatorStatus.SUCCESS,
             StudyRoomJoinValidatorStatus.RESIGNED_USER -> StudyRoomJoinStatus.SUCCESS
         }
+    }
+
+    fun getStudyRoomDetail(studyRoomId: Long): StudyRoomDetailResponse? {
+        val findStudyRoom = studyRoomQueryRepository.findStudyRoomDetail(studyRoomId)
+        return findStudyRoom?.let { StudyRoomDetailResponse.of(findStudyRoom) } ?: null
+
     }
 
 }

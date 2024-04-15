@@ -70,5 +70,18 @@ class StudyRoomQueryRepositoryTest @Autowired constructor (
         studyRoomRepository.saveAll(studyRoomList)
     }
 
+    @Test
+    fun findStudyRoomDetailTest() {
+        // given
+        val category = fixture<Category>()
+        val title = "testTitle"
+        saveStudyRoomList(category, title, 30)
 
+        // when
+        val findStudyRoomDetail = studyRoomQueryDslRepository.findStudyRoomDetail(1L)
+
+        // then
+        assertThat(findStudyRoomDetail).isNotNull
+        assertThat(findStudyRoomDetail!!.id).isEqualTo(1L)
+    }
 }

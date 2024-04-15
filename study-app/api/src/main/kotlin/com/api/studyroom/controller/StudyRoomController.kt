@@ -6,6 +6,7 @@ import com.api.common.toResponse
 import com.api.studyroom.constant.StudyRoomCreationStatus
 import com.api.studyroom.constant.StudyRoomJoinStatus
 import com.api.studyroom.dto.StudyRoomCreationRequest
+import com.api.studyroom.dto.StudyRoomDetailResponse
 import com.api.studyroom.dto.StudyRoomListRequest
 import com.api.studyroom.dto.StudyRoomListResponse
 import com.api.studyroom.service.StudyRoomService
@@ -14,7 +15,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-class StudyRoomController (
+class StudyRoomController(
     private val studyRoomService: StudyRoomService
 ) {
 
@@ -29,8 +30,16 @@ class StudyRoomController (
     }
 
     @PostMapping("studyroom/{studyRoomId}/user/{userId}")
-    fun joinStudyRoom(@PathVariable studyRoomId: Long, @PathVariable userId: Long): ResponseEntity<StatusResult<StudyRoomJoinStatus>> {
+    fun joinStudyRoom(
+        @PathVariable studyRoomId: Long,
+        @PathVariable userId: Long
+    ): ResponseEntity<StatusResult<StudyRoomJoinStatus>> {
         return StatusResult(studyRoomService.joinStudyRoom(studyRoomId, userId)).toResponse()
+    }
+
+    @GetMapping("studyroom/{studyRoomId}")
+    fun getStudyRoomDetail(@PathVariable studyRoomId: Long): ResponseEntity<DataResult<StudyRoomDetailResponse?>> {
+        return DataResult(studyRoomService.getStudyRoomDetail(studyRoomId)).toResponse()
     }
 
 }

@@ -39,7 +39,18 @@ class StudyRoomQueryRepository (
     private fun categoryEq(category: Long?): BooleanExpression? =
         category?.let { studyRoom.category.id.eq(category) } ?: null
 
+    fun findStudyRoomDetail (
+        studyRoomId: Long
+    ): StudyRoom? {
+        return queryFactory
+            .selectFrom(studyRoom)
+            .innerJoin(studyRoom.category, category).fetchJoin()
+            .where(studyRoomIdEq(studyRoomId))
+            .fetchOne()
+    }
 
+    private fun studyRoomIdEq(studyRoomId: Long): BooleanExpression? =
+        studyRoomId.let { studyRoom.id.eq(it) }
 
 
 

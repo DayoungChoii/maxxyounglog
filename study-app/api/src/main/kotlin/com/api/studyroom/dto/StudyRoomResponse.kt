@@ -28,3 +28,21 @@ data class SimpleStudyRoomDto (
             )
     }
 }
+
+data class StudyRoomDetailResponse (
+    val title: String,
+    val explanation: String,
+    val category: String,
+    val userCount: Int
+) {
+    companion object {
+        fun of(studyRoom: StudyRoom) =
+            StudyRoomDetailResponse(
+                title = studyRoom.title,
+                explanation = studyRoom.explanation,
+                category = studyRoom.category.name,
+                userCount = studyRoom.userStudyRooms.size,
+            )
+    }
+}
+
