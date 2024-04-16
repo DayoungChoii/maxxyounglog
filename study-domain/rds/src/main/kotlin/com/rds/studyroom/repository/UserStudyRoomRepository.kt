@@ -5,7 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 
 interface UserStudyRoomRepository: JpaRepository<UserStudyRoom, Long> {
+
     fun findByStudyRoomIdAndUserId(studyRoomId: Long, userId: Long): UserStudyRoom?
+
+    fun findByUserId(userId: Long): List<UserStudyRoom>?
     @Query("select count(u) from UserStudyRoom u where u.studyRoom.id = ?1")
     fun countByStudyRoom(studyRoomId: Long): Int
 }
