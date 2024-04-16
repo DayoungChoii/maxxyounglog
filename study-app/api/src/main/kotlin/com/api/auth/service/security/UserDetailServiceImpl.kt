@@ -19,6 +19,6 @@ class UserDetailServiceImpl (
 
         val grantedAuthorities: Set<GrantedAuthority> = HashSet()
         return org.springframework.security.core.userdetails
-            .User(user.email, user.password, grantedAuthorities)
+            .User(user.id.toString(), user.password, grantedAuthorities)
     }
 }
