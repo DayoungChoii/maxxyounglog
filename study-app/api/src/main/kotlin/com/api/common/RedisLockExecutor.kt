@@ -11,7 +11,7 @@ class RedisLockExecutor (
     private val redissonClient: RedissonClient
 ) {
     fun <R> execute(target:Long, task:() -> R): R {
-        val lock = redissonClient.getLock(target.toString())
+        val lock = redissonClient.getLock("concurrency-lock-$target")
 
         try {
             val available = lock.tryLock(10, 1, TimeUnit.SECONDS)
