@@ -2,6 +2,7 @@ package com.async.studyroom
 
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 
 @Component
@@ -12,7 +13,7 @@ class StudyPointProducer(
         kafkaTemplate.send("create-study-point", studyRoomId.toString(), point.toString())
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     override fun joinStudyRoom(studyRoomId:Long, userId: Long, point: Int) {
         kafkaTemplate.send("add-study-point", studyRoomId.toString(), point.toString())
         kafkaTemplate.send("sub-user-point", userId.toString(), point.toString())
