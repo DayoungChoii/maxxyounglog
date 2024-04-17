@@ -6,7 +6,7 @@ import jakarta.persistence.*
 @Entity
 class StudyRoomPoint (
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "studyRoomId")
+    @JoinColumn(name = "study_room_id")
     val studyRoom: StudyRoom,
     var point: Int
 ): BaseTimeEntity() {

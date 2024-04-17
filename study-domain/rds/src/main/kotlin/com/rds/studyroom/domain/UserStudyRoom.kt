@@ -7,10 +7,10 @@ import jakarta.persistence.*
 @Entity
 class UserStudyRoom (
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "studyRoomId")
+    @JoinColumn(name = "study_room_id")
     val studyRoom: StudyRoom,
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     val user: User,
 ): BaseTimeEntity() {
     @Id

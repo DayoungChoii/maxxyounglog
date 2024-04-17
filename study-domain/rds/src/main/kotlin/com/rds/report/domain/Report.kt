@@ -7,7 +7,7 @@ import jakarta.persistence.*
 @Entity
 class Report (
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     val user: User
 ): BaseTimeEntity() {
     @Id

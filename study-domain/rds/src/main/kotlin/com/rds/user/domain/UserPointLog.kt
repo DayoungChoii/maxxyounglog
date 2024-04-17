@@ -6,7 +6,7 @@ import jakarta.persistence.*
 @Entity
 class UserPointLog (
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     val user: User,
     val point: Int,
     @Enumerated(EnumType.STRING)

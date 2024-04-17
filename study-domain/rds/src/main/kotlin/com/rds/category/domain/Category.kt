@@ -14,7 +14,7 @@ class Category (
     val id: Long = 0L
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parentId")
+    @JoinColumn(name = "parent_id")
     val parent: Category? = null
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")

@@ -6,7 +6,7 @@ import jakarta.persistence.*
 @Entity
 class UserPoint (
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     val user: User,
     var point: Int
 ): BaseTimeEntity() {

@@ -9,6 +9,7 @@ class StudyRoom (
     val title: String,
     val explanation: String,
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
     val category: Category,
 ): BaseTimeEntity() {
     @Id

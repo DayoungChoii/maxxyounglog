@@ -8,13 +8,13 @@ import jakarta.persistence.*
 @Entity
 class StudyAuthentication (
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "studyRoomId")
+    @JoinColumn(name = "study_room_id")
     val studyRoom: StudyRoom,
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     val user: User,
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "authFileName")
+    @JoinColumn(name = "auth_file_name")
     val authFileId: AuthFile
 
 ) : BaseTimeEntity() {
