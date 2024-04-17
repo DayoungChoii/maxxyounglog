@@ -3,10 +3,9 @@ package com.api.studyroom.service
 import com.api.studyroom.dto.MyStudyRoomDetailResponse
 import com.api.studyroom.dto.SimpleStudyRoomDto
 import com.api.studyroom.dto.StudyRoomListResponse
-import com.rds.studyroom.repository.StudyRoomRepository
+import com.api.studyroom.repository.MyStudyRoomQueryRepository
 import com.rds.studyroom.repository.UserStudyRoomRepository
 import org.springframework.cache.annotation.Cacheable
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -14,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional(readOnly = true)
 class MyStudyRoomService (
     private val userStudyRoomRepository: UserStudyRoomRepository,
-    private val studyRoomRepository: StudyRoomRepository
+    private val studyRoomRepository: MyStudyRoomQueryRepository
 ) {
 
     @Cacheable(cacheNames = ["shortTerm"])
@@ -25,7 +24,7 @@ class MyStudyRoomService (
 
     @Cacheable(cacheNames = ["longTerm"])
     fun getStudyRoomDetail(studyRoomId: Long): MyStudyRoomDetailResponse? {
-        val findStudyRoom = studyRoomRepository.findByIdOrNull(studyRoomId)
+        val findStudyRoom = studyRoomRepository.findMyStudyRoomDetail(studyRoomId)
         return findStudyRoom?.let {  MyStudyRoomDetailResponse.of(findStudyRoom) } ?: null
     }
 
