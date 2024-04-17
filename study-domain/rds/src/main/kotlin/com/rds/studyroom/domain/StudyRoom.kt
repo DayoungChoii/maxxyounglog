@@ -18,4 +18,7 @@ class StudyRoom (
     var state: StudyRoomState = StudyRoomState.ACTIVATED
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "studyRoom")
     val userStudyRooms: List<UserStudyRoom> = ArrayList()
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "studyRoom")
+    val studyRoomPoint: StudyRoomPoint? = null
+
 }
