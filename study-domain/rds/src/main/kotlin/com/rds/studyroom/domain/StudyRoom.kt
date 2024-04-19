@@ -22,4 +22,8 @@ class StudyRoom (
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "studyRoom")
     val studyRoomPoint: StudyRoomPoint? = null
 
+    fun disabled() {
+        this.state = StudyRoomState.DISABLED
+    }
+
 }
