@@ -1,4 +1,4 @@
-package com.rds.studyauthentication.domain
+package com.rds.studyCompletion.domain
 
 import com.rds.BaseTimeEntity
 import jakarta.persistence.Entity
@@ -7,7 +7,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 
 @Entity
-class AuthFile (
+class CompletionFile (
     val fileName: String
 ) : BaseTimeEntity() {
     @Id
