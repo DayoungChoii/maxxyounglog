@@ -66,4 +66,16 @@ class UserPointConsumer(
         saveUserPointLog(user, point, SUBTRACTED)
     }
 
+    @KafkaListener(topics = ["add-user-point"], groupId = "point")
+    @Transactional
+    fun addUserPoint(data: ConsumerRecord<String, String>) {
+        val userId = data.key().toLong()
+        val point = data.value().toInt()
+        val user = userRepository.findByIdOrNull(userId)!!
+
+        val findUserPoint = userPointRepository.findByUserId(userId)
+        findUserPoint.add(point)
+        saveUserPointLog(user, point, ADDED)
+    }
+
 }

@@ -18,4 +18,8 @@ class UserPoint (
         this.point -= point
     }
 
+    fun add(point: Int) {
+        this.point += point
+    }
+
 }
