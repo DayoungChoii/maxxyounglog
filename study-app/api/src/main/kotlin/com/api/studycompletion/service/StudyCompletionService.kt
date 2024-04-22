@@ -1,16 +1,18 @@
 package com.api.studycompletion.service
 
+import com.api.common.const.COMPLETION_POINT
 import com.api.common.file.FileUploader
 import com.api.studycompletion.constant.StudyCompletionCreationStatus
 import com.api.studycompletion.constant.StudyCompletionCreationValidatorStatus
 import com.api.studycompletion.dto.StudyCompletionCreationRequest
-import com.async.user.UserPointService
 import com.rds.studyCompletion.domain.CompletionFile
 import com.rds.studyCompletion.domain.StudyCompletion
+import com.rds.studyCompletion.event.StudyCompletionCreatedEvent
 import com.rds.studyCompletion.repository.CompletionFileRepository
 import com.rds.studyCompletion.repository.StudyCompletionRepository
 import com.rds.studyroom.repository.StudyRoomRepository
 import com.rds.user.repository.UserRepository
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -23,7 +25,7 @@ class StudyCompletionService (
     private val fileUploader: FileUploader,
     private val studyRoomRepository: StudyRoomRepository,
     private val userRepository: UserRepository,
-    private val userPointService: UserPointService
+    private val eventPublisher: ApplicationEventPublisher,
 ) {
 
     @Transactional
@@ -47,7 +49,7 @@ class StudyCompletionService (
             )
         )
 
-        userPointService.addPoint(request.userId, 10)
+        eventPublisher.publishEvent(StudyCompletionCreatedEvent(user.id, COMPLETION_POINT))
 
         return StudyCompletionCreationStatus.SUCCESS
 
