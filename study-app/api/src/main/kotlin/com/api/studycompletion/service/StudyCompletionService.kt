@@ -21,7 +21,6 @@ class StudyCompletionService (
     private val studyCompletionRepository: StudyCompletionRepository,
     private val completionFileRepository: CompletionFileRepository,
     private val fileUploader: FileUploader,
-    private val validator: StudyCompletionCreationValidator,
     private val studyRoomRepository: StudyRoomRepository,
     private val userRepository: UserRepository,
     private val userPointService: UserPointService
@@ -29,26 +28,25 @@ class StudyCompletionService (
 
     @Transactional
     fun completeStudy(request: StudyCompletionCreationRequest): StudyCompletionCreationStatus{
-        //유효성 체크
-        val validateResult = validator.validate(request)
+        val studyRoom = studyRoomRepository.findByIdOrNull(request.studyRoomId)
+        val user = userRepository.findByIdOrNull(request.userId)
+
+        val validator = StudyCompletionCreationValidator(studyRoom, user)
+        val validateResult = validator.validate()
         if (validateResult != StudyCompletionCreationValidatorStatus.SUCCESS) {
             return convertValidationToResponse(validateResult)
         }
-        //파일 업로드
         val fileName = fileUploader.upload(request.file)
-        //파일 저장
         val savedFile = completionFileRepository.save(CompletionFile(fileName))
-        //스터디 인증 저장
-        val studyRoom = studyRoomRepository.findByIdOrNull(request.studyRoomId)!!
-        val user = userRepository.findByIdOrNull(request.userId)!!
+
         studyCompletionRepository.save(
             StudyCompletion(
-                studyRoom = studyRoom,
-                user = user,
+                studyRoom = studyRoom!!,
+                user = user!!,
                 completionFile = savedFile
             )
         )
-        //카프카 인증 포인트 10포인트
+
         userPointService.addPoint(request.userId, 10)
 
         return StudyCompletionCreationStatus.SUCCESS
