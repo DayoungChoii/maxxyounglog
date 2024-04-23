@@ -1,28 +1,24 @@
-import org.springframework.boot.gradle.tasks.bundling.BootJar
-
 plugins {
 	id("org.springframework.boot") version "3.2.1"
 	id("io.spring.dependency-management") version "1.1.4"
 	kotlin("jvm") version "1.9.21"
 	kotlin("plugin.spring") version "1.9.21"
 	kotlin("plugin.jpa") version "1.9.21"
+	kotlin("plugin.allopen")
 }
 
-tasks.getByName<BootJar>("bootJar") {
-	enabled = false
+allOpen {
+	annotation("jakarta.persistence.Entity")
+	annotation("jakarta.persistence.Embeddable")
+	annotation("jakarta.persistence.MappedSuperclass")
 }
 
-tasks.getByName<Jar>("jar") {
-	enabled = true
-	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}
 
 dependencies {
 	implementation(project(":study-domain:rds"))
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

@@ -5,8 +5,14 @@ plugins {
 	kotlin("kapt")
 	kotlin("plugin.spring") version "1.9.21"
 	kotlin("plugin.jpa") version "1.9.21"
+	kotlin("plugin.allopen")
 }
 
+allOpen {
+	annotation("jakarta.persistence.Entity")
+	annotation("jakarta.persistence.Embeddable")
+	annotation("jakarta.persistence.MappedSuperclass")
+}
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")

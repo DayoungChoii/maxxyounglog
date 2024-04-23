@@ -1,30 +1,24 @@
-import org.springframework.boot.gradle.tasks.bundling.BootJar
-
 plugins {
 	id("org.springframework.boot") version "3.2.1"
 	id("io.spring.dependency-management") version "1.1.4"
 	kotlin("jvm") version "1.9.21"
 	kotlin("plugin.spring") version "1.9.21"
 	kotlin("plugin.jpa") version "1.9.21"
+	kotlin("plugin.allopen")
 	kotlin("kapt")
 }
 
-tasks.getByName<BootJar>("bootJar") {
-	enabled = false
-}
-
-tasks.getByName<Jar>("jar") {
-	enabled = true
-	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+allOpen {
+	annotation("jakarta.persistence.Entity")
+	annotation("jakarta.persistence.Embeddable")
+	annotation("jakarta.persistence.MappedSuperclass")
 }
 
 dependencies {
 	implementation(project(":study-domain:rds"))
-	implementation(project(":study-internal:async"))
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.springframework.boot:spring-boot-starter-batch")
 	//querydsl
 	implementation ("com.querydsl:querydsl-jpa:5.0.0:jakarta")
