@@ -4,7 +4,6 @@ import com.querydsl.core.types.dsl.BooleanExpression
 import com.querydsl.jpa.impl.JPAQueryFactory
 import com.rds.category.domain.QCategory.category
 import com.rds.studyroom.domain.QStudyRoom.studyRoom
-import com.rds.studyroom.domain.QStudyRoomPoint.studyRoomPoint
 import com.rds.studyroom.domain.StudyRoom
 import org.springframework.stereotype.Repository
 
@@ -18,7 +17,6 @@ class MyStudyRoomQueryRepository (
     ): StudyRoom?
         = queryFactory
             .selectFrom(studyRoom)
-            .innerJoin(studyRoom.studyRoomPoint, studyRoomPoint).fetchJoin()
             .innerJoin(studyRoom.category, category).fetchJoin()
             .where(studyRoomIdEq(studyRoomId))
             .fetchOne()

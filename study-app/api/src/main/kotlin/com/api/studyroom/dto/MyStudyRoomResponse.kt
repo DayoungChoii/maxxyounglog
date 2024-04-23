@@ -13,7 +13,7 @@ data class MyStudyRoomDetailResponse (
     val studyRoomPoint: Int
 ) {
     companion object {
-        fun of(studyRoom: StudyRoom) =
+        fun of(studyRoom: StudyRoom, studyRoomPoint: Int) =
             MyStudyRoomDetailResponse(
                 studyRoomId = studyRoom.id,
                 title = studyRoom.title,
@@ -21,7 +21,7 @@ data class MyStudyRoomDetailResponse (
                 category = studyRoom.category.name,
                 participantNum = studyRoom.userStudyRooms.size,
                 participants = studyRoom.userStudyRooms.map { ParticipantDto.of( it.user ) },
-                studyRoomPoint = studyRoom.studyRoomPoint?.point ?: 0
+                studyRoomPoint = studyRoomPoint
             )
     }
 }
