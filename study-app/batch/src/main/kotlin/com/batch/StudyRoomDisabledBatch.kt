@@ -39,7 +39,7 @@ class StudyRoomDisabledBatch (
     }
     private val log = LoggerFactory.getLogger(this.javaClass)
 
-    @Scheduled(cron = EVERYDAY_END_OF_MONTH)
+    @Scheduled(fixedRate = 100000)
     fun execute() {
         jobLauncher.run(
             job(jobRepository, transactionManager),
@@ -81,6 +81,7 @@ class StudyRoomDisabledBatch (
                 )
                 .groupBy(studyRoom.id)
                 .having(userStudyRoom.id.count().eq(0))
+                .orderBy(studyRoom.id.desc())
         }
     }
 
