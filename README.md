@@ -1,4 +1,8 @@
 # 스터디 인증 서비스
+
+스터디 인증 서비스를 제공하는 BACK-END API 서버이다.
+
+## 서비스 소개
 회원가입시 포인트를 제공받는다. 사용자는 포인트를 사용해서 스터디를 참여할 수 있고 만약 인증 참여하지 않는다면 포인트를 돌려받지 못하고 스터디 방에서 탈퇴 당한다. 
 스터디는 매달 1일에 시작하고 말일에 끝난다. 말일에 살아남은 회원들은 남은 포인트의 1/N을 다시 돌려받는다. 이렇게 매달 반복한다.
 
@@ -23,6 +27,8 @@
 `docker`
 `kafka`
 ## 서버 구조도
+![image](https://github.com/DayoungChoii/maxxyounglog/assets/38481737/7b0461c7-ecb2-4510-a3ca-d8c580975ec4)
+
 
 ## API 명세서
 [포스트맨 API 명세](https://documenter.getpostman.com/view/20625101/2sA3BobruN#9fe6853e-31f5-49c2-9b3d-674eaa0c3fd6)
