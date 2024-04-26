@@ -63,13 +63,3 @@ spring:
 domain: localhost
 kafka:
   bootstrap-servers: localhost:9092
----
-spring:
-  config:
-    activate:
-      on-profile: test
-  jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
-    hibernate:
-      ddl-auto: none
-domain: localhost
