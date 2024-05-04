@@ -34,9 +34,16 @@
 [포스트맨 API 명세](https://documenter.getpostman.com/view/20625101/2sA3BobruN#9fe6853e-31f5-49c2-9b3d-674eaa0c3fd6)
 
 ## 이슈 정리
-- [멀티 모듈 적용](https://velog.io/@maxxyoung/maxxlog-%EB%A9%80%ED%8B%B0-%EB%AA%A8%EB%93%88-%EC%A0%81%EC%9A%A9])
-- [스프링 시큐리티 + JWT + Redis](https://velog.io/@maxxyoung/maxxlog-%EC%8A%A4%ED%94%84%EB%A7%81-%EC%8B%9C%ED%81%90%EB%A6%AC%ED%8B%B0-65wxdqna)
-- [포인트 적립 및 사용 처리 - Kafka](https://velog.io/@maxxyoung/maxxlog-%ED%8F%AC%EC%9D%B8%ED%8A%B8-%EC%A0%81%EB%A6%BD-%EB%B0%8F-%EC%82%AC%EC%9A%A9-%EC%B2%98%EB%A6%AC)
-- [스터디방 목록 캐시 - Redis](https://velog.io/@maxxyoung/maxxlog-%EC%8A%A4%ED%84%B0%EB%94%94%EB%B0%A9-%EB%AA%A9%EB%A1%9D-%EC%BA%90%EC%8B%9C-Redis)
-- [스터디방 참여 동시성 제어 - Redis(Redisson)](https://velog.io/@maxxyoung/maxxlog-%EC%8A%A4%ED%84%B0%EB%94%94%EB%B0%A9-%EC%B0%B8%EC%97%AC-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4)
+- [요구 사항 분석과 스키마 도출](https://velog.io/@maxxyoung/maxxlog-요구-사항-분석])
+- [멀티 모듈을 통한 도메인 관리](https://velog.io/@maxxyoung/maxxlog-%EB%A9%80%ED%8B%B0-%EB%AA%A8%EB%93%88-%EC%A0%81%EC%9A%A9])
+- [스프링 시큐리티를 활용한 인증, 인가 처리](https://velog.io/@maxxyoung/maxxlog-%EC%8A%A4%ED%94%84%EB%A7%81-%EC%8B%9C%ED%81%90%EB%A6%AC%ED%8B%B0)
+  - Redis를 활용하여 Refresh 토큰 저장
+  - Custom Spring Filter를 활용한 인증, 인가 로직과  예외 처리 
+- [포인트 적립 및 사용 처리를 Kafka를 활용하여 해결](https://velog.io/@maxxyoung/maxxlog-%ED%8F%AC%EC%9D%B8%ED%8A%B8-%EC%A0%81%EB%A6%BD-%EB%B0%8F-%EC%82%AC%EC%9A%A9-%EC%B2%98%EB%A6%AC)
+  - Docker 환경에서 Kafka 설정
+  - Kafka Transaction 적용 
+- [스터디방 목록 조회 시 캐시를 적용하여 성능 향상](https://velog.io/@maxxyoung/maxxlog-%EC%8A%A4%ED%84%B0%EB%94%94%EB%B0%A9-%EB%AA%A9%EB%A1%9D-%EC%BA%90%EC%8B%9C-Redis)
+  - Redis를 활용한 캐시적용
+  -  목적에 따라 TTL로 shortTerm과 longTerm으로 분리
+- [스터디방 가입 시 동시성 문제를 해결하기 위해 Redisson을 이용한 분산락 활용](https://velog.io/@maxxyoung/maxxlog-%EC%8A%A4%ED%84%B0%EB%94%94%EB%B0%A9-%EC%B0%B8%EC%97%AC-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4)
 
