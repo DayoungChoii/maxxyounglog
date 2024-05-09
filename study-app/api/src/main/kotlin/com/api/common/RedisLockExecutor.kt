@@ -23,7 +23,10 @@ class RedisLockExecutor (
         } catch (e: InterruptedException) {
             throw RedisException(RedisExceptionType.LOCK_TIME_OUT, e)
         } finally {
-            lock.unlock()
+            if (lock.isLocked && lock.isHeldByCurrentThread) {
+                lock.unlock()
+            }
+
         }
     }
 }
