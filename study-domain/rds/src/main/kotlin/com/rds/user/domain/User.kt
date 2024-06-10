@@ -22,5 +22,8 @@ class User(
         this.name = name
     }
 
+    fun block() {
+        this.state = UserState.BLOCKED
+    }
 
 }
